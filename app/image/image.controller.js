@@ -17,7 +17,7 @@ function ImageController($scope, $http, ImageService, $uibModal, $log, $location
     function getImages() {
 		if (busy) return;
 			busy = true;
-    	$scope.loadMoreBtn = '<span class="load-more-spin glyphicon glyphicon-repeat glyphicon-spin"></span> در حال آوردن موارد بیشتر...';
+    	$scope.loadMoreBtn = '<span class="load-more-spin fa fa-circle-o-notch fa-spin"></span> در حال آوردن موارد بیشتر...';
 
     	return ImageService.get(page)
 	        .then(function(result) {
