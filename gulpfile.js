@@ -57,7 +57,7 @@ gulp.task('useref', function() {
 
 // Optimizing Images 
 gulp.task('images', function() {
-  gulp.src('app/assets/img/**/*')
+  return gulp.src('app/assets/img/**/*')
   .pipe(image())
   .pipe(gulp.dest('dist/img'))
 })
@@ -66,6 +66,17 @@ gulp.task('images', function() {
 gulp.task('fonts', function() {
   return gulp.src('app/assets/fonts/**/*')
     .pipe(gulp.dest('dist/fonts'))
+})
+
+// Copying partials templates
+gulp.task('uib', function() {
+  return gulp.src('app/uib/**/*')
+  .pipe(gulp.dest('dist/uib'))
+})
+
+gulp.task('templates', ['uib'], function() {
+  return gulp.src('app/partials/**/*')
+    .pipe(gulp.dest('dist/partials'));
 })
 
 // Cleaning 
@@ -82,7 +93,6 @@ gulp.task('clean:dist', function() {
 /**
  * Build Sequences
  */
-
 gulp.task('default', function(callback) {
   runSequence(['sass', 'browserSync', 'watch'],
     callback
@@ -92,7 +102,7 @@ gulp.task('default', function(callback) {
 gulp.task('build', function(callback) {
   runSequence(
     'clean:dist',
-    ['sass', 'useref', 'images', 'fonts'],
+    ['sass', 'useref', 'images', 'fonts', 'templates'],
     callback
   )
 })
