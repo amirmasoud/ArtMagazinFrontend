@@ -9,7 +9,7 @@ body {
     direction: rtl;
     min-width: 397px;
     font-family: 'B Yekan', tahoma, Arial;
-    background: url(../img/bg.png) no-repeat no-repeat fixed right 30px #f1f1f1;
+    background-color: #f1f1f1;
     background-size: contain;
 }
 
