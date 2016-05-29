@@ -1,7 +1,6 @@
 angular
 	.module('app', [
-		'ngRoute', 
-		'ngSanitize', 
+		'ngRoute',
 		'cfp.hotkeys',
 		'ui.bootstrap',
 		'angular-loading-bar'

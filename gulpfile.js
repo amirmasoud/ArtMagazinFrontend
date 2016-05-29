@@ -11,6 +11,7 @@ var browserSync = require('browser-sync');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
+var historyApiFallback = require('connect-history-api-fallback');
 
 /**
  * Development Tasks 
@@ -18,11 +19,12 @@ var autoprefixer = require('gulp-autoprefixer');
 
 // Start browserSync server
 gulp.task('browserSync', function() {
-  browserSync({
+  browserSync.init({
     server: {
-      baseDir: 'app'
+      baseDir: "app",
+      middleware: [ historyApiFallback() ]
     }
-  })
+  });
 })
 
 gulp.task('sass', function() {
@@ -32,6 +34,11 @@ gulp.task('sass', function() {
     .pipe(browserSync.reload({ // Reloading with Browser Sync
       stream: true
     }));
+})
+
+gulp.task('apache', function() {
+  return gulp.src('app/.htaccess')
+    .pipe(gulp.dest('dist'))
 })
 
 // Watchers
@@ -59,7 +66,7 @@ gulp.task('useref', function() {
 gulp.task('images', function() {
   return gulp.src('app/assets/img/**/*')
   .pipe(image())
-  .pipe(gulp.dest('dist/img'))
+  .pipe(gulp.dest('dist/assets/img'))
 })
 
 // Copying fonts 
@@ -80,14 +87,8 @@ gulp.task('templates', ['uib'], function() {
 })
 
 // Cleaning 
-gulp.task('clean', function() {
-  return del.sync('dist').then(function(cb) {
-    return cache.clearAll(cb);
-  });
-})
-
 gulp.task('clean:dist', function() {
-  return del.sync(['dist/**/*', '!dist/images', '!dist/images/**/*']);
+  return del.sync(['dist/**/*', '!dist/assets/img', '!dist/assets/img/**/*']);
 })
 
 /**
@@ -102,7 +103,7 @@ gulp.task('default', function(callback) {
 gulp.task('build', function(callback) {
   runSequence(
     'clean:dist',
-    ['sass', 'useref', 'images', 'fonts', 'templates'],
+    ['sass', 'useref', 'images', 'fonts', 'templates', 'apache'],
     callback
   )
 })

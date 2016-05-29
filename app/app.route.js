@@ -5,13 +5,12 @@ angular
 	.module('app')
 	.config(config);
 
+config.$inject = ['$routeProvider'];
 function config($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'partials/index.html'
-		})
-		.when('/about', {
-			templateUrl: 'partials/about.html'
+			templateUrl: 'partials/index.html',
+			controller: 'ImageController'
 		});
 }
 

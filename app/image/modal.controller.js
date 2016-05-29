@@ -2,9 +2,8 @@ angular
 	.module('app')
 	.controller('ModalController', ModalController);
 
-ImageController.$inject = ['$scope', '$http', 'ImageService', '$uibModal', '$log', '$location'];
-
-function ModalController($scope, ImageService, hotkeys, $uibModalInstance, singular, $location) {
+ModalController.$inject = ['$scope', 'ImageService', 'hotkeys', '$uibModalInstance', 'singular'];
+function ModalController($scope, ImageService, hotkeys, $uibModalInstance, singular) {
 	$scope.singular = singular;
 	$scope.loadingImageNext = false;
 	$scope.loadingImagePrev = false;
