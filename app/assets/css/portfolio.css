@@ -17,6 +17,10 @@ body {
     top: 4px !important;
 }
 
+a:hover, a:focus {
+    text-decoration: none;
+}
+
 /**
  * header navigation
  */
